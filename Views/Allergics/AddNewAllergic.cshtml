@@ -1,0 +1,27 @@
+﻿@model Allergy.ViewModels.EditAllergicViewModel
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Add new person</h4>
+    </div>
+    <div class="modal-body">
+        <form asp-action="AddNewAllergic" asp-controller="Allergics" id="addNewAllergic">
+            <div class="form-group">
+                <label asp-for="Diagnosis" class="control-label">
+                    Person's current diagnosis: <br />
+                    @Model.Diagnosis
+                </label>
+            </div>
+
+            @Html.AntiForgeryToken()
+            @await Html.PartialAsync("~/Views/Allergics/Shared/_AllergicEditor.cshtml", Model)
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-info ap-external" data-for="addNewAllergic">Add</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    </div>
+</div>
+

@@ -1,0 +1,75 @@
+﻿@model Allergy.ViewModels.AllergicsListViewModel
+
+@{
+    ViewData["Title"] = "Allergic people";
+}
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+
+<div class="text-center">
+    <h3>List of allergic people</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Person name</th>
+                <th>Diagnosis</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var allergic in Model.Allergics)
+            {
+                <tr>
+                    <td>@allergic.Name</td>
+                    <td>@allergic.Diagnosis</td>
+                    <td>
+                        <a class="allergic-button" asp-action="EditAllergic" asp-controller="Allergics" asp-route-allergicId="@allergic.AllergicId">
+                            Edit allergic
+                        </a>
+                        <a class="allergic-button" asp-action="RemoveAllergic" asp-controller="Allergics" asp-route-allergicId="@allergic.AllergicId">
+                            Remove allergic
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <br />
+    <a class="allergic-button" asp-action="AddNewAllergic" asp-controller="Allergics">
+        Add new allergic
+    </a>
+</div>
+
+<div id="modalDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".allergic-button").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modalDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}

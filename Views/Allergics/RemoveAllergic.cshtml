@@ -1,0 +1,20 @@
+﻿@model Allergy.ViewModels.AllergicViewModel
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h4>Remove person</h4>
+        <div class="pull-right">
+            <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form asp-action="RemoveAllergicRecord" asp-controller="Allergics" asp-route-allergicId="@Model.AllergicId" id="remove_allergic">
+            <p>Are you sure you want to remove @Model.Name from the allergics list?</p>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-for="remove_allergic" id="submit_remove_allergic">Remove</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    </div>
+</div>

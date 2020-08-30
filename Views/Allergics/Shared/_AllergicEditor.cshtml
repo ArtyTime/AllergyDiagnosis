@@ -1,0 +1,14 @@
+﻿@model Allergy.ViewModels.EditAllergicViewModel
+
+<input asp-for="AllergicId" hidden />
+
+<div class="form-group">
+    <label asp-for="Name" class="control-label">Person's name</label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name"></span>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Person's allergens</label>
+    <select asp-items="@Model.AvailableAllergens" asp-for="SelectedAllergens" multiple class="form-control js-select"></select>
+</div>
