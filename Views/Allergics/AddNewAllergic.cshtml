@@ -2,26 +2,22 @@
 
 <div class="modal-content">
     <div class="modal-header">
-        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
         <h4>Add new person</h4>
+        <div class="pull-right">
+            <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        </div>
     </div>
     <div class="modal-body">
-        <form asp-action="AddNewAllergic" asp-controller="Allergics" id="addNewAllergic">
-            <div class="form-group">
-                <label asp-for="Diagnosis" class="control-label">
-                    Person's current diagnosis: <br />
-                    @Model.Diagnosis
-                </label>
-            </div>
-
+        <form asp-action="AddNewAllergic" asp-controller="Allergics" id="add_new_allergic">
             @Html.AntiForgeryToken()
             @await Html.PartialAsync("~/Views/Allergics/Shared/_AllergicEditor.cshtml", Model)
+
         </form>
     </div>
 
     <div class="modal-footer">
-        <button type="submit" class="btn btn-info ap-external" data-for="addNewAllergic">Add</button>
+        <button type="submit" class="btn btn-info" data-for="add_new_allergic" 
+                onclick="$('#add_new_allergic').submit();">Add</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
     </div>
 </div>
-

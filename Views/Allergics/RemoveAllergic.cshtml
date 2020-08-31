@@ -8,13 +8,14 @@
         </div>
     </div>
     <div class="modal-body">
-        <form asp-action="RemoveAllergicRecord" asp-controller="Allergics" asp-route-allergicId="@Model.AllergicId" id="remove_allergic">
+        <form asp-action="RemoveAllergic" asp-controller="Allergics" asp-route-id="@Model.AllergicId" id="remove_allergic">
             <p>Are you sure you want to remove @Model.Name from the allergics list?</p>
         </form>
     </div>
 
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" data-for="remove_allergic" id="submit_remove_allergic">Remove</button>
+        <button type="submit" class="btn btn-primary" data-for="remove_allergic" 
+                onclick="$('#remove_allergic').submit();">Remove</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
     </div>
 </div>

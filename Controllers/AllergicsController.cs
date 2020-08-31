@@ -2,8 +2,6 @@
 using Allergy.Extensions;
 using Allergy.Services;
 using System.Linq;
-using MotleyFlash;
-using MotleyFlash.Extensions;
 using Allergy.ViewModels;
 using Allergy.Models;
 using System.Threading.Tasks;
@@ -13,12 +11,10 @@ namespace Allergy.Controllers
     public class AllergicsController : Controller
     {
         private readonly IAllergiesService _allergiesService;
-        private readonly IMessenger _messenger;
 
-        public AllergicsController(IAllergiesService allergiesService, IMessenger messenger)
+        public AllergicsController(IAllergiesService allergiesService)
         {
             _allergiesService = allergiesService;
-            _messenger = messenger;
         }
 
         public IActionResult Index()
@@ -49,8 +45,6 @@ namespace Allergy.Controllers
 
             await _allergiesService.CreateAsync(newAllergic);
 
-            _messenger.Success($"Person {newAllergic.Name} has been successfully added");
-
             return RedirectToAction("Index");
         }
 
@@ -70,11 +64,7 @@ namespace Allergy.Controllers
             var allergic = _allergiesService.Get(allergicVm.AllergicId);
 
             if (allergic == null)
-            {
-                _messenger.Error($"Person {allergicVm.Name} with ID {allergicVm.AllergicId} doesn't exist in the database");
-
                 return RedirectToAction("Index");
-            }
 
             var allergiesScore = allergicVm.SelectedAllergens.Select(a => int.Parse(a)).Sum();
 
@@ -82,8 +72,6 @@ namespace Allergy.Controllers
             allergic.Score = allergiesScore;
 
             await _allergiesService.UpdateAsync(allergic);
-
-            _messenger.Success($"Person {allergic.Name} has been successfully updated");
 
             return RedirectToAction("Index");
         }
@@ -106,8 +94,6 @@ namespace Allergy.Controllers
 
             if (allergic != null)
                 await _allergiesService.DeleteAsync(allergic);
-
-            _messenger.Success("Person has been successfully removed");
 
             return RedirectToAction("Index");
         }

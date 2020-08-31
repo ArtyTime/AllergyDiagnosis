@@ -2,13 +2,10 @@ using Allergy.Models;
 using Allergy.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MotleyFlash;
-using MotleyFlash.AspNetCore.MessageProviders;
 
 namespace Allergy
 {
@@ -24,7 +21,6 @@ namespace Allergy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSession();
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
@@ -35,14 +31,6 @@ namespace Allergy
                         connectionString, options => options.EnableRetryOnFailure()));
 
             services.AddScoped<IAllergiesService, AllergiesService>();
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped(x => x.GetRequiredService<IHttpContextAccessor>().HttpContext.Session);
-
-            services.AddScoped<IMessageProvider, SessionMessageProvider>();
-            services.AddScoped<IMessageTypes>(x => new MessageTypes("danger"));
-            services.AddScoped<IMessengerOptions, MessengerOptions>();
-            services.AddScoped<IMessenger, StackMessenger>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -51,8 +39,6 @@ namespace Allergy
                 app.UseDeveloperExceptionPage();
             else
                 app.UseHsts();
-
-            app.UseSession();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -35,10 +35,10 @@
                     <td>@allergic.Name</td>
                     <td>@allergic.Diagnosis</td>
                     <td>
-                        <a class="allergic-button" asp-action="EditAllergic" asp-controller="Allergics" asp-route-allergicId="@allergic.AllergicId">
+                        <a class="allergic-button btn btn-primary" asp-action="EditAllergic" asp-controller="Allergics" asp-route-allergicId="@allergic.AllergicId">
                             Edit allergic
                         </a>
-                        <a class="allergic-button" asp-action="RemoveAllergic" asp-controller="Allergics" asp-route-allergicId="@allergic.AllergicId">
+                        <a class="allergic-button btn btn-danger" asp-action="RemoveAllergic" asp-controller="Allergics" asp-route-allergicId="@allergic.AllergicId">
                             Remove allergic
                         </a>
                     </td>
@@ -48,7 +48,7 @@
     </table>
 
     <br />
-    <a class="allergic-button" asp-action="AddNewAllergic" asp-controller="Allergics">
+    <a class="allergic-button btn btn-info" asp-action="AddNewAllergic" asp-controller="Allergics">
         Add new allergic
     </a>
 </div>
